@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Realidad Aumentada Video</title>
+  <script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
+  <script src="https://jeromeetienne.github.io/AR.js/aframe/build/aframe-ar.js"></script>
+  <style>
+    body, html { margin: 0; padding: 0; overflow: hidden; }
+  </style>
+</head>
+<body>
+  <a-scene embedded arjs="sourceType: webcam;">
+    <a-marker preset="hiro">
+      <a-video 
+        src="#videoAR" 
+        position="0 0.5 0" 
+        rotation="-90 0 0" 
+        width="1" 
+        height="0.5"
+        autoplay>
+      </a-video>
+    </a-marker>
+    <a-entity camera></a-entity>
+  </a-scene>
+
+  <!-- Video oculto -->
+  <video id="videoAR" src="https://drive.google.com/file/d/1jaOo4M3B5wprPomc1H6hBKRKdygAcwYw/view?usp=drivesdk" autoplay loop style="display: none;"></video>
+
+  <script>
+    // Manejo de permisos para la cámara
+    navigator.mediaDevices.getUserMedia({ video: true })
+      .then(function (stream) {
+        console.log("Acceso a la cámara concedido");
+      })
+      .catch(function (error) {
+        console.error("Error al acceder a la cámara: ", error);
+        alert("Por favor, habilita el acceso a la cámara en tu navegador para usar la realidad aumentada.");
+      });
+  </script>
+
+</body>
+</html>
